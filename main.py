@@ -1,10 +1,8 @@
-import collections
-from multiprocessing.spawn import import_main_path
 from urllib.request import urlopen, Request
-import  json
 from PyPDF2 import PdfFileReader
-import io
 import  pandas as pd
+import  json
+import io
 
 basicurl = 'https://opendata-ajuntament.barcelona.cat/data'
 url = 'https://opendata-ajuntament.barcelona.cat/data/api/action/datastore_search?resource_id=ed515bb8-502b-4dff-96dc-769f72767919&limit=5&q=title:jones'
