@@ -22,7 +22,7 @@ parse_start = json.loads(startobj.read())
 
 parser = parse_start['result']['records']
 
-df = pd.DataFrame([], columns=['nom_barri', 'poblacio_sola', 'titulats_superiors', 'nombre_aturats' , 'renda', 'sobreenvelliment'])
+df = pd.DataFrame([], columns=['NOMBRE DEL BARRIO', 'POBLACION DE MAS DE 65 AÑOS QUE VIVE SOLA %', 'TITULADOS SUPERIORES Y CFGS %', 'NUMERO DE PARADOS' , 'RENTA FAMILIAR (2017)', 'INDICE DE SOBREENVEJICIMIENTO'])
 
 for x in range(73):
     barri = parser[x]
@@ -36,15 +36,15 @@ for x in range(73):
     page = pdf_file.getPage(1)
     page_content = page.extract_text()
     i = page_content.find('Població de més de 65 anys que viu sola (%)  (2)')
-    PS = page_content[(i + 49):page_content.find(' ', i + 49)]
+    PS = page_content[(i + 49):page_content.find(' ', i + 49)].replace(",", ".")
     i = page_content.find('% Titulats superiors i CFGS (1)')
-    TS = page_content[(i + 32):page_content.find(' ', i + 32)]
+    TS = page_content[(i + 32):page_content.find(' ', i + 32)].replace(",", ".")
     i = page_content.find("Nombre d'aturats registrats (5)")
-    NA = page_content[(i + 32):page_content.find(' ', i + 32)]
+    NA = page_content[(i + 32):page_content.find(' ', i + 32)].replace(",", ".")
     i = page_content.find("Renda familiar disponible per habitant (2017)")
-    RF = page_content[(i + 46):page_content.find(' ', i + 46)]
+    RF = page_content[(i + 46):page_content.find(' ', i + 46)].replace(",", ".")
     i = page_content.find("Índex de sobreenvelliment   (3)")
-    IS = page_content[(i + 32):page_content.find(' ', i + 32)]
-    df1 = pd.DataFrame([[NB, PS, TS, NA, RF, IS]], columns=['nom_barri', 'poblacio_sola', 'titulats_superiors', 'nombre_aturats' , 'renda', 'sobreenvelliment'])
+    IS = page_content[(i + 32):page_content.find(' ', i + 32)].replace(",", ".")
+    df1 = pd.DataFrame([[NB, PS, TS, NA, RF, IS]], columns=['NOMBRE DEL BARRIO', 'POBLACION DE MAS DE 65 AÑOS QUE VIVE SOLA %', 'TITULADOS SUPERIORES Y CFGS %', 'NUMERO DE PARADOS' , 'RENTA FAMILIAR (2017)', 'INDICE DE SOBREENVEJICIMIENTO'])
     df = pd.concat([df, df1])
 df.to_csv('data.csv', index=False)
